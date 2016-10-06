@@ -18,15 +18,23 @@ setopt nobeep nohistbeep nolistbeep
 #}}}
 
 # environ vars {{{
-export PATH=$PATH:~/bin
+export PATH="$(brew --prefix gnu-sed)/libexec/gnubin:$(brew --prefix coreutils)/libexec/gnubin:/opt/storm/bin:/opt/maven/bin:/usr/local/opt:/usr/local/bin:/usr/local/sbin:/bin:$PATH"
 export BC_ENV_ARGS=~/.bcrc
 export EDITOR=/usr/bin/vim
 LS_COLORS='rs=0:di=00;34:ln=00;36:mh=00:pi=40;33:so=00;35:do=00;35:bd=40;33;00:cd=40;33;00:or=40;31;00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=00;32:*.tar=00;31:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.lzma=00;31:*.tlz=00;31:*.txz=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.dz=00;31:*.gz=00;31:*.lz=00;31:*.xz=00;31:*.bz2=00;31:*.bz=00;31:*.tbz=00;31:*.tbz2=00;31:*.tz=00;31:*.deb=00;31:*.rpm=00;31:*.jar=00;31:*.rar=00;31:*.ace=00;31:*.zoo=00;31:*.cpio=00;31:*.7z=00;31:*.rz=00;31:*.jpg=00;35:*.jpeg=00;35:*.gif=00;35:*.bmp=00;35:*.pbm=00;35:*.pgm=00;35:*.ppm=00;35:*.tga=00;35:*.xbm=00;35:*.xpm=00;35:*.tif=00;35:*.tiff=00;35:*.png=00;35:*.svg=00;35:*.svgz=00;35:*.mng=00;35:*.pcx=00;35:*.mov=00;35:*.mpg=00;35:*.mpeg=00;35:*.m2v=00;35:*.mkv=00;35:*.ogm=00;35:*.mp4=00;35:*.m4v=00;35:*.mp4v=00;35:*.vob=00;35:*.qt=00;35:*.nuv=00;35:*.wmv=00;35:*.asf=00;35:*.rm=00;35:*.rmvb=00;35:*.flc=00;35:*.avi=00;35:*.fli=00;35:*.flv=00;35:*.gl=00;35:*.dl=00;35:*.xcf=00;35:*.xwd=00;35:*.yuv=00;35:*.cgm=00;35:*.emf=00;35:*.axv=00;35:*.anx=00;35:*.ogv=00;35:*.ogx=00;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.axa=00;36:*.oga=00;36:*.spx=00;36:*.xspf=00;36:';
 export LS_COLORS
+export M2_HOME=/opt/maven
+export JAVA_HOME=$(/usr/libexec/java_home)
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=$(which python)
+export VIRTUALENVWRAPPER_VIRTUALENV=$(which virtualenv)
+export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+source $(which virtualenvwrapper.sh)
 #}}}
 
 # aliases {{{
-alias ls='ls --color=auto'
+alias ls='ls --color'
+alias ll='ls -lh'
 alias tree='tree -L 1 -C'
 alias :q='exit'
 alias sudo='command sudo '
@@ -36,6 +44,7 @@ alias gitt='git ls-files -toc'
 alias .f='cd ~/.config/dotfiles/'
 alias pyc='find . -name "*.pyc" -delete; ls'
 alias tmux='tmux -2'
+alias npm-exec='PATH=$(npm bin):$PATH'
 
 $(which pacman-color &> /dev/null ) && alias pacman='pacman-color'
 #}}}
@@ -112,12 +121,21 @@ chpwd(){ #{{{
 
 set-prompt(){ #{{{
     git-prompt
-    PS1="%{$fg_no_bold[white]%}%~ $GIT_PROMPT%(?.%{$fg_no_bold[blue]%}:%{$fg_bold[blue]%}:%{$fg_bold[cyan]%}:.%{$fg_no_bold[magenta]%}:%{$fg_bold[red]%}:%{$fg_bold[magenta]%}:)%{$reset_color%} "
+    venv-prompt
+    PS1="%{$fg_no_bold[white]%}%~ $GIT_PROMPT$VENV_PROMPT%(?.%{$fg_no_bold[blue]%}:%{$fg_bold[blue]%}:%{$fg_bold[cyan]%}:.%{$fg_no_bold[magenta]%}:%{$fg_bold[red]%}:%{$fg_bold[magenta]%}:)%{$reset_color%} "
     RPROMPT="%(?.%{$fg_bold[cyan]%}:%{$fg_bold[blue]%}:%{$fg_no_bold[blue]%}:.%{$fg_bold[magenta]%}:%{$fg_bold[red]%}:%{$fg_no_bold[magenta]%}:) %{$fg_no_bold[white]%}%n@%m%{$reset_color%}"
 } #}}}
 
+venv-prompt(){ #{{{
+    venv=$(basename $VIRTUAL_ENV 2>/dev/null)
+    if [ -n "$venv" ]; then
+        VENV_PROMPT="(${venv}) "
+    fi
+}
+#}}}
+
 git-prompt(){ #{{{
-    if [ -d .git ]; then
+    if [ -d .git ] || [ -f .git ]; then
         git_ref=$(git symbolic-ref HEAD 2>/dev/null)
         git_branch=${git_ref#refs/heads/}
         git_upstream=''
@@ -169,3 +187,6 @@ if [[ $TTY == /dev/tty1 ]]; then
 fi
 
 # vim:foldlevel=0
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

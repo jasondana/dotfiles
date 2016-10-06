@@ -1,40 +1,18 @@
 servers = (
   {
-      address = "irc.freenode.net";
-      chatnet = "freenode";
-      port = "6667";
-      use_ssl = "no";
-      ssl_verify = "no";
-      autoconnect = "yes";
+    address = "irc.esper.net";
+    chatnet = "esper";
+    port = "6667";
+    use_ssl = "no";
+    ssl_verify = "no";
+    autoconnect = "yes";
   }
-  {
-      address = "irc.esper.net";
-      chatnet = "esper";
-      port = "6667";
-      use_ssl = "no";
-      ssl_verify = "no";
-      autoconnect = "yes";
-  },
-  {
-      address = "irc.dciphrd.net";
-      chatnet = "dciphrd";
-      port = "6667";
-      use_ssl = "no";
-      ssl_verify = "no";
-      autoconnect = "yes";
-  },
 );
 
-chatnets = {
-    freenode = { type = "IRC"; };
-    esper = { type = "IRC"; };
-    dciphrd = { type = "IRC"; };
-};
+chatnets = { esper = { type = "IRC"; }; };
 
 channels = (
-  { name = "#dev"; chatnet = "dciphrd"; autojoin = "yes"; },
-  { name = "#starcraft"; chatnet = "esper"; autojoin = "yes"; },
-  { name = "#sc2reader"; chatnet = "freenode"; autojoin = "yes"; },
+  { name = "#casualteam"; chatnet = "freenode"; autojoin = "yes"; }
 );
 
 aliases = {

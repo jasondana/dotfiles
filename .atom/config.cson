@@ -1,0 +1,66 @@
+"*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "5cc624b6-7a13-4691-8ea8-7b6ee0830ec8"
+  "atom-material-ui":
+    colors:
+      abaseColor:
+        red: 45
+        green: 50
+        blue: 59
+        alpha: 1
+      accentColor:
+        red: 37
+        green: 155
+        blue: 238
+        alpha: 1
+      predefinedColor: "Blue"
+    fonts:
+      fontSize: 15
+    tabs:
+      compactTabs: true
+      tintedTabBar: true
+    treeView:
+      blendTabs: true
+      compactList: true
+    ui:
+      animations: false
+      panelContrast: true
+      panelShadows: true
+  "atom-ternjs":
+    lint: true
+  "atom-typescript": {}
+  core:
+    disabledPackages: [
+      "linter-tslint"
+      "git-time-machine"
+    ]
+    themes: [
+      "atom-material-ui"
+      "base16-tomorrow-dark-theme"
+    ]
+  editor:
+    fontSize: 12
+    showIndentGuide: true
+    showInvisibles: true
+  "exception-reporting":
+    userId: "46a9b37e-a794-aaf9-bb18-2359b9b7e05b"
+  jslint:
+    hideOnNoErrors: true
+  linter:
+    errorPanelHeight: 97
+  "linter-python":
+    executablePath: "/usr/local/bin/pylama"
+    withMcCabe: true
+    withPep8: true
+    withPyflakes: true
+  "one-dark-ui":
+    fontSize: 11
+    layoutMode: "Compact"
+  "tree-view":
+    autoReveal: true
+    hideIgnoredNames: true
+    hideVcsIgnoredFiles: true
+    squashDirectoryNames: true
+  welcome:
+    showOnStartup: false
